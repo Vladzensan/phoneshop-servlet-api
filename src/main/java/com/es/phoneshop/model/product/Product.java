@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Product {
+    private static long maxID = 0;
+
     private Long id;
     private String code;
     private String description;
@@ -17,8 +19,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String code, String description, BigDecimal price, Currency currency, int stock, String imageUrl) {
-        this.id = id;
+    public Product(String code, String description, BigDecimal price, Currency currency, int stock, String imageUrl) {
+        this.id = ++maxID;
         this.code = code;
         this.description = description;
         this.price = price;
