@@ -44,11 +44,12 @@ public class ArrayListProductDao implements ProductDao {
 
     @Override
     public void save(Product product) {
-        throw new RuntimeException("Not implemented");
+        if(!products.stream().anyMatch(e -> e.getCode().equals(product.getCode())))
+            products.add(product);
     }
 
     @Override
     public void delete(Long id) {
-        throw new RuntimeException("Not implemented");
+        products.removeIf(e -> e.getId() == id);
     }
 }
