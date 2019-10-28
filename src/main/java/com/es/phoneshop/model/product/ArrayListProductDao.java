@@ -1,5 +1,7 @@
 package com.es.phoneshop.model.product;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -29,10 +31,17 @@ public class ArrayListProductDao implements ProductDao {
         products.add(new Product("simsxg75", "Siemens SXG75", new BigDecimal(150), usd, 40, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20SXG75.jpg"));
     }
 
+    public ArrayListProductDao(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public Product getProduct(Long id) {
-        Optional<Product> matchingObject = products.stream().filter(x -> x.getId().intValue() == id).findFirst();
-        return matchingObject.isPresent() ? matchingObject.get() : null;
+        Optional<Product> matchingProduct = products.stream().filter(x -> x.getId() == id).findFirst();
+        if (matchingProduct.isPresent())
+            return matchingProduct.get();
+        else
+            throw new RuntimeException("Product with such id is not found");
     }
 
     @Override
@@ -44,12 +53,20 @@ public class ArrayListProductDao implements ProductDao {
 
     @Override
     public void save(Product product) {
-        if(!products.stream().anyMatch(e -> e.getCode().equals(product.getCode())))
+        if (!products.contains(product))
             products.add(product);
+        else
+            throw new RuntimeException("Product is already in the list");
     }
 
     @Override
     public void delete(Long id) {
-        products.removeIf(e -> e.getId() == id);
+        Optional<Product> optProduct = products.stream().
+                filter(e -> e.getId() == id).
+                findFirst();
+        if (optProduct.isPresent())
+            products.remove(optProduct.get());
+        else
+            throw new RuntimeException("Product with such id doesn't exist");
     }
 }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Product {
-    private static long maxID = 0;
+    private static Long maxID = 0L;
 
     private Long id;
     private String code;
@@ -20,13 +20,26 @@ public class Product {
     }
 
     public Product(String code, String description, BigDecimal price, Currency currency, int stock, String imageUrl) {
-        this.id = ++maxID;
+        this.id = Long.valueOf(++maxID);
         this.code = code;
         this.description = description;
         this.price = price;
         this.currency = currency;
         this.stock = stock;
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return  true;
+
+        if(this.getClass() != obj.getClass())
+            return false;
+
+        Product product = (Product) obj;
+
+        return product.code.equals(this.code);
     }
 
     public Long getId() {
