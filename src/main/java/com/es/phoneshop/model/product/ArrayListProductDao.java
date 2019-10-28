@@ -45,14 +45,14 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public List<Product> findProducts() {
+    public synchronized List<Product> findProducts() {
         return products.stream().
                 filter(x -> x.getStock() > 0 && x.getPrice() != null).
                 collect(Collectors.toList());
     }
 
     @Override
-    public void save(Product product) {
+    public synchronized void save(Product product) {
         if (!products.contains(product))
             products.add(product);
         else
@@ -60,7 +60,7 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public synchronized void delete(Long id) {
         Optional<Product> optProduct = products.stream().
                 filter(e -> e.getId() == id).
                 findFirst();
