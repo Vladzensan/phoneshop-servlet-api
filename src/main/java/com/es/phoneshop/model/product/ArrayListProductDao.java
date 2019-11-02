@@ -8,41 +8,34 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDao implements ProductDao {
-    private static ArrayListProductDao productDao;
     private static Long maxID = 0L;
     private List<Product> products;
 
-    synchronized public static ArrayListProductDao getInstance() {
-        if (productDao == null) {
-            productDao = new ArrayListProductDao();
-        }
-        return productDao;
-    }
 
-    private ArrayListProductDao() {
+    public ArrayListProductDao() {
         maxID = 0L;
         products = new ArrayList<>();
         setProducts(getSampleProducts());
     }
 
 
-    public synchronized void setProducts(List<Product> products) {
+    protected synchronized void setProducts(List<Product> products) {
         this.products = products;
     }
 
     @Override
     public synchronized Product getProduct(Long id) {
-        return products.stream().
-                filter(product -> product.getId().equals(id)).
-                findAny().
-                orElseThrow(() -> new NoSuchElementException("Element with id " + id + " is not found"));
+        return products.stream()
+                .filter(product -> product.getId().equals(id))
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException("Element with id " + id + " is not found"));
     }
 
     @Override
     public synchronized List<Product> findProducts() {
-        return products.stream().
-                filter(x -> x.getPrice() != null && x.getStock() > 0).
-                collect(Collectors.toList());
+        return products.stream()
+                .filter(x -> x.getPrice() != null && x.getStock() > 0)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -61,8 +54,8 @@ public class ArrayListProductDao implements ProductDao {
 
 
     private boolean containsID(Long id) {
-        return products.stream().
-                anyMatch(product -> product.getId().equals(id));
+        return products.stream()
+                .anyMatch(product -> product.getId().equals(id));
     }
 
     private Long getNextId() {

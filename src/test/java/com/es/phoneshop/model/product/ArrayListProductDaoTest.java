@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ArrayListProductDaoTest {
-    private ArrayListProductDao productDao = ArrayListProductDao.getInstance();
+    private ArrayListProductDao productDao = new ArrayListProductDao();
 
+    @Mock
+    private Product product;
     @Mock
     private Product product1;
     @Mock
@@ -67,7 +68,6 @@ public class ArrayListProductDaoTest {
 
     @Test
     public void testSaveProduct() {
-        Product product = mock(Product.class);
         when(product.getId()).thenReturn(222L);
         productDao.save(product);
         assertSame(productDao.getProduct(product.getId()), product);
@@ -93,6 +93,4 @@ public class ArrayListProductDaoTest {
     public void testDeleteNonExistingProduct() {
         productDao.delete(213245L);
     }
-
-
 }
