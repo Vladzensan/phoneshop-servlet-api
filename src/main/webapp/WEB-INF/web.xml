@@ -12,6 +12,11 @@
         </listener-class>
     </listener>
 
+    <context-param>
+        <param-name>initialData</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>productList</servlet-name>
         <servlet-class>com.es.phoneshop.web.ProductListPageServlet</servlet-class>
@@ -32,5 +37,6 @@
         <servlet-name>productDetails</servlet-name>
         <url-pattern>/products/*</url-pattern>
     </servlet-mapping>
+
 
 </web-app>

@@ -2,19 +2,16 @@ package com.es.phoneshop.model.product;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Product {
 
     private Long id;
     private String code;
     private String description;
-    /**
-     * null means there is no price because the product is outdated or new
-     */
-    private BigDecimal price;
-    /**
-     * can be null if the price is null
-     */
+    private Map<Date, BigDecimal> priceHistory;
     private Currency currency;
     private int stock;
     private String imageUrl;
@@ -24,11 +21,11 @@ public class Product {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
         }
 
-        if (this.getClass() != obj.getClass() && obj == null) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
 
@@ -43,7 +40,10 @@ public class Product {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.price = price;
+        priceHistory = new LinkedHashMap<>();
+        if (price != null) {
+            priceHistory.put(new Date(), price);
+        }
         this.currency = currency;
         this.stock = stock;
         this.imageUrl = imageUrl;
@@ -73,12 +73,14 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public void setPrice(BigDecimal price) {
+        priceHistory.put(new Date(), price);
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public BigDecimal getPrice() {
+        return priceHistory.size() != 0
+                ? (BigDecimal) priceHistory.values().toArray()[priceHistory.size() - 1]
+                : null;
     }
 
     public Currency getCurrency() {
@@ -103,5 +105,9 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Map<Date, BigDecimal> getPriceHistory() {
+        return priceHistory;
     }
 }

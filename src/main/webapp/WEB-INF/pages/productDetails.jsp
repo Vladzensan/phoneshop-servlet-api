@@ -27,4 +27,22 @@
             </td>
         </tr>
     </table>
+    <p>
+        Price History:
+    <table>
+        <thead>
+        <tr>
+            <td>Date</td>
+            <td class="price">Price</td>
+        </tr>
+        </thead>
+        <c:forEach var="entry" items="${product.getPriceHistory()}">
+            <tr>
+                <td>${entry.getKey()}</td>
+                <td class="price"><fmt:formatNumber value="${entry.getValue()}" type="currency"
+                                                    currencySymbol="${product.currency.symbol}"/></td>
+            </tr>
+        </c:forEach>
+    </table
+    </p>
 </tags:master>

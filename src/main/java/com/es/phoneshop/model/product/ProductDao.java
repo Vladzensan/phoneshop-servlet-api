@@ -1,14 +1,13 @@
 package com.es.phoneshop.model.product;
 
-import com.es.phoneshop.SortItems.SortField;
-import com.es.phoneshop.SortItems.SortOrder;
+import com.es.phoneshop.SortItems.SortItem;
 
 import java.util.List;
 
 public interface ProductDao {
     Product getProduct(Long id);
 
-    List<Product> findProducts(String query, SortField sortField, SortOrder sortOrder);
+    List<Product> findProducts(String query, SortItem sortItem);
 
     void save(Product product);
 

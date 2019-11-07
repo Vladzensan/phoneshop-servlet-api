@@ -35,7 +35,7 @@
                 </td>
                 <td><a href="/products/${product.id}">${product.description}</a></td>
                 <td class="price">
-                    <fmt:formatNumber value="${product.price}" type="currency"
+                    <fmt:formatNumber value="${product.getPrice()}" type="currency"
                                       currencySymbol="${product.currency.symbol}"/>
                 </td>
             </tr>
