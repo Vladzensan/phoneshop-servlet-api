@@ -24,8 +24,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
             request.setAttribute("product", product);
             request.getRequestDispatcher("/WEB-INF/pages/productDetails.jsp").forward(request, response);
-        } catch (NoSuchElementException | IllegalArgumentException e
-        ) {
+        } catch (NoSuchElementException | IllegalArgumentException e) {
             request.getRequestDispatcher("/WEB-INF/pages/productNotFound.jsp").forward(request, response);
         }
     }
