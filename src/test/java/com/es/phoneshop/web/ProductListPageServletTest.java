@@ -1,5 +1,6 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.SortItems.SortItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +35,12 @@ public class ProductListPageServletTest {
 
     @Test
     public void testDoGet() throws ServletException, IOException {
+        when(request.getParameter("sort")).thenReturn("price");
         servlet.doGet(request, response);
 
+        verify(request).getParameter("query");
+        verify(request).getParameter("sort");
+        verify(request).getParameter("order");
         verify(requestDispatcher).forward(request, response);
     }
 }
