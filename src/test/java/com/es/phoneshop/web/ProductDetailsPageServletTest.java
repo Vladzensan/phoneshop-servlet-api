@@ -34,6 +34,7 @@ public class ProductDetailsPageServletTest {
 
     @Test
     public void testDoGet() throws ServletException, IOException {
+        when(request.getRequestURI()).thenReturn("/products/32");
         servlet.doGet(request, response);
 
         verify(requestDispatcher).forward(request, response);
