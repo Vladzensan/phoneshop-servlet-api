@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ArrayListProductDaoTest {
-    private ArrayListProductDao productDao = new ArrayListProductDao();
+    private ArrayListProductDao productDao = ArrayListProductDao.getInstance();
 
     @Mock
     private Product product;
@@ -35,6 +35,15 @@ public class ArrayListProductDaoTest {
         when(product1.getId()).thenReturn(0L);
         when(product2.getId()).thenReturn(1L);
         when(product3.getId()).thenReturn(2L);
+
+        BigDecimal notNullPrice = new BigDecimal(5);
+        when(product1.getPrice()).thenReturn(notNullPrice);
+        when(product2.getPrice()).thenReturn(notNullPrice);
+        when(product3.getPrice()).thenReturn(notNullPrice);
+
+        when(product1.getStock()).thenReturn(24);
+        when(product2.getStock()).thenReturn(24);
+        when(product3.getStock()).thenReturn(24);
     }
 
     @Test
@@ -50,20 +59,26 @@ public class ArrayListProductDaoTest {
     }
 
     @Test
-    public void testFindProducts() {
-        BigDecimal notNullPrice = new BigDecimal(5);
-        when(product1.getPrice()).thenReturn(notNullPrice);
+    public void testFindProductsNoQuery() {
         when(product2.getPrice()).thenReturn(null);
-        when(product3.getPrice()).thenReturn(notNullPrice);
 
         when(product1.getStock()).thenReturn(0);
-        when(product2.getStock()).thenReturn(24);
-        when(product3.getStock()).thenReturn(24);
 
-
-        List<Product> products = productDao.findProducts();
+        List<Product> products = productDao.findProducts(null, null);
         assertTrue(products.size() == 1);
         assertSame(products.get(0), product3);
+    }
+
+    @Test
+    public void testFindProductsSearchQuery() {
+        when(product1.getDescription()).thenReturn("Samsung S");
+        when(product2.getDescription()).thenReturn("HTC");
+        when(product3.getDescription()).thenReturn("S phone");
+
+        List<Product> products = productDao.findProducts("Samsung S", null);
+        assertTrue(products.size() == 2);
+        assertSame(products.get(0), product1);
+        assertSame(products.get(1), product3);
     }
 
     @Test
