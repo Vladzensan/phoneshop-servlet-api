@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public class ProductDetailsPageServlet extends HttpServlet {
-    ProductDao productDao = ArrayListProductDao.getInstance();
+    private ProductDao productDao = ArrayListProductDao.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
