@@ -1,6 +1,5 @@
 package com.es.phoneshop.web;
 
-import com.es.phoneshop.SortItems.SortItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ public class ProductListPageServletTest {
     private ProductListPageServlet servlet = new ProductListPageServlet();
 
     @Before
-    public void setup(){
+    public void setup() {
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
     }
 
