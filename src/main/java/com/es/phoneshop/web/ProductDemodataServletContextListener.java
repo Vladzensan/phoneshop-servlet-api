@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductDemodataServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        if(sce.getServletContext().getInitParameter("initialData").equals("true")) {
+        if (sce.getServletContext().getInitParameter("initialData").equals("true")) {
             ArrayListProductDao.getInstance().setProducts(getSampleProducts());
         }
     }

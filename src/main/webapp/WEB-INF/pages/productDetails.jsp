@@ -7,6 +7,7 @@
 <tags:master pageTitle="Product List">
     <p>
         Welcome to Expert-Soft training!
+        Cart: ${cart.getCartItems()}
     </p>
     <table>
         <thead>
@@ -45,4 +46,32 @@
         </c:forEach>
     </table
     </p>
+    <p>
+    <form method="post" action="${pageContext.servletContext.contextPath}/products/${product.id}">
+        <label>Quantity: </label> <input name="quantity" value="${not empty param.quantity? param.quantity: 1}"/>
+        <button>Add to cart</button>
+        <c:if test="${not empty error}">
+            <span style="color:red">${error}</span>
+        </c:if>
+        <c:if test="${param.success}">
+            <span style="color:green">Added to cart</span>
+        </c:if>
+    </form>
+    </p>
+    <b>Recently viewed:</b>
+    <table>
+        <c:forEach var="product" items="${viewedProducts}">
+            <tr>
+                <td>
+                    <img class="product-tile"
+                         src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+                </td>
+                <td><a href="<c:url value="/products/${product.id}"/>">${product.description}</a></td>
+                <td class="price">
+                    <fmt:formatNumber value="${product.getPrice()}" type="currency"
+                                      currencySymbol="${product.currency.symbol}"/>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </tags:master>
