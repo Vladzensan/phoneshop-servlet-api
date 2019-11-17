@@ -7,11 +7,15 @@ import java.util.LinkedList;
 public class WatchHistory {
     private LinkedList<Product> viewedProducts;
 
-    public WatchHistory(){
+    public WatchHistory() {
         viewedProducts = new LinkedList<>();
     }
 
-    public LinkedList<Product> getViewedProducts(){
+    public LinkedList<Product> getViewedProducts() {
         return viewedProducts;
+    }
+
+    public void setViewedProducts(LinkedList<Product> viewedProducts) {
+        this.viewedProducts = viewedProducts;
     }
 }
