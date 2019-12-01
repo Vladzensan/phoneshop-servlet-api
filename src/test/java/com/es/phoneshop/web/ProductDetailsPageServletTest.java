@@ -73,7 +73,6 @@ public class ProductDetailsPageServletTest {
         servlet.doGet(request, response);
 
         verify(request).setAttribute(eq("viewedProducts"), any());
-        verify(request).setAttribute(eq("cart"), any());
         verify(request).setAttribute(eq("product"), eq(product3));
         verify(request).getRequestDispatcher("/WEB-INF/pages/productDetails.jsp");
         verify(requestDispatcher).forward(request, response);

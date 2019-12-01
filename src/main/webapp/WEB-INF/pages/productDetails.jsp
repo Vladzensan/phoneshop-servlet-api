@@ -7,7 +7,6 @@
 <tags:master pageTitle="Product List">
     <p>
         Welcome to Expert-Soft training!
-        Cart: ${cart.getCartItems()}
     </p>
     <table>
         <thead>

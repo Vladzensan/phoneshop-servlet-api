@@ -81,7 +81,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
     }
 
     private void showPage(Product product, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("cart", cartService.getCart(request));
         request.setAttribute("product", product);
         request.setAttribute("viewedProducts", watchService.getWatchHistory(request).getViewedProducts());
         request.getRequestDispatcher("/WEB-INF/pages/productDetails.jsp").forward(request, response);

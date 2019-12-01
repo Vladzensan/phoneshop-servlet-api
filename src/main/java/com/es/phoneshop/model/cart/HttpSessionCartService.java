@@ -47,6 +47,27 @@ public class HttpSessionCartService implements CartService {
         recalculateTotals(cart);
     }
 
+    @Override
+    public void update(Cart cart, Product product, int newQuantity) {
+        if (newQuantity == 0) {
+            delete(cart, product);
+            return;
+        }
+
+        Optional<CartItem> item = findItemByProduct(cart, product);
+
+        validateNewQuantity(product, newQuantity);
+
+        item.ifPresent(cartItem -> cartItem.setQuantity(newQuantity));
+        recalculateTotals(cart);
+    }
+
+    @Override
+    public void delete(Cart cart, Product product) {
+        cart.getCartItems().removeIf(item -> item.getProduct().equals(product));
+        recalculateTotals(cart);
+    }
+
     private Optional<CartItem> findItemByProduct(Cart cart, Product product) {
         return cart.getCartItems().stream()
                 .filter(item -> item.getProduct().equals(product))
