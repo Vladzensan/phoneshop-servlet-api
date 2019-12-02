@@ -68,6 +68,16 @@ public class HttpSessionCartService implements CartService {
         recalculateTotals(cart);
     }
 
+    @Override
+    public void clearCart(Cart cart) {
+        for (CartItem cartItem : cart.getCartItems()) {
+            Product product = cartItem.getProduct();
+            product.setStock(product.getStock() - cartItem.getQuantity());
+        }
+        cart.getCartItems().clear();
+        recalculateTotals(cart);
+    }
+
     private Optional<CartItem> findItemByProduct(Cart cart, Product product) {
         return cart.getCartItems().stream()
                 .filter(item -> item.getProduct().equals(product))

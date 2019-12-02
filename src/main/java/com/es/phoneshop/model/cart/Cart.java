@@ -13,6 +13,10 @@ public class Cart implements Serializable {
         this.cartItems = new ArrayList<>();
     }
 
+    protected Cart(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
     public List<CartItem> getCartItems() {
         return this.cartItems;
     }

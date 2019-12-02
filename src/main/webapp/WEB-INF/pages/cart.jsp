@@ -32,7 +32,7 @@
                         <input type="hidden" name="productId" value="${item.product.id}">
                     </td>
                     <td>
-                        <button  form="delete" name="productId" value="${item.product.id}">Delete</button>
+                        <button form="delete" name="productId" value="${item.product.id}">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -48,5 +48,12 @@
     <form id="delete" method="post" action="<c:url value="/cart/deleteCartItem"/>"></form>
 
     <input type="submit" value="update" form="form"/>
+    <p>
+    <c:if test="${not empty cart.cartItems}">
+        <form method="get" action="<c:url value="/checkout"/>">
+            <button>Checkout</button>
+        </form>
+    </c:if>
+    </p>
 
 </tags:master>
