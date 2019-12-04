@@ -9,6 +9,8 @@ import com.es.phoneshop.model.history.WatchHistory;
 import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.product.ProductDao;
+import com.es.phoneshop.model.reviews.HttpSessionReviewService;
+import com.es.phoneshop.model.reviews.Review;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
@@ -24,17 +27,23 @@ public class ProductDetailsPageServlet extends HttpServlet {
     private ProductDao productDao;
     private CartService cartService;
     private HttpSessionWatchService watchService;
+    private HttpSessionReviewService reviewService;
 
     public void init() {
         this.productDao = ArrayListProductDao.getInstance();
         this.cartService = HttpSessionCartService.getInstance();
         this.watchService = HttpSessionWatchService.getInstance();
+        this.reviewService = HttpSessionReviewService.getInstance();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Long productID = getProductID(request);
             Product product = productDao.getProduct(productID);
+
+            List<Review> reviews = reviewService.getReviewsForProduct(productID);
+
+            request.setAttribute("reviews", reviews);
 
             WatchHistory watchHistory = watchService.getWatchHistory(request);
             watchService.setLastViewed(watchHistory, product);

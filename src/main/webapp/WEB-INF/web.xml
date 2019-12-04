@@ -68,6 +68,26 @@
         <url-pattern>/minicart</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>review</servlet-name>
+        <servlet-class>com.es.phoneshop.web.ReviewServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>review</servlet-name>
+        <url-pattern>/products/review/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>welcomefilter</filter-name>
+        <filter-class>com.es.phoneshop.web.filters.WelcomePageFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>welcomefilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/productNotFound.jsp</location>

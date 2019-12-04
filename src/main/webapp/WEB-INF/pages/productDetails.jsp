@@ -4,6 +4,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <jsp:useBean id="product" type="com.es.phoneshop.model.product.Product" scope="request"/>
+<jsp:useBean id="reviews" type="java.util.ArrayList" scope="request"/>
 <tags:master pageTitle="Product List">
     <p>
         Welcome to Expert-Soft training!
@@ -73,4 +74,34 @@
             </tr>
         </c:forEach>
     </table>
+
+  <p>
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Rating</td>
+            <td>Review</td>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="review" items="${reviews}">
+            <tr>
+            <td>${review.author}</td>>
+            <td>${review.rating}</td>
+            <td>${review.comment}</td>
+            </tr>
+        </c:forEach>
+
+        </tbody>
+    </table>
+    </p>
+
+    <form method="post" action="${pageContext.request.contextPath}/products/review/${product.id}">
+        Name:   <input name="author">
+        Rating  <input name="rating" type="number" min="1" max="5">
+        Comment <input name="comment">
+        <button type="submit">Submit</button>
+
+    </form>
 </tags:master>
