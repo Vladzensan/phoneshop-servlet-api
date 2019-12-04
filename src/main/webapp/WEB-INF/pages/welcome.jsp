@@ -6,7 +6,7 @@
 
 <tags:master pageTitle="Welcome">
     <h1 class="text">Welcome to our website!</h1>
-    <form method="get" action="<c:url value="${link}"/>">
+    <form method="get" action="${link}">
         <button type="submit">Proceed</button>
     </form>
 </tags:master>
